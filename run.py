@@ -12,8 +12,16 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('the_fairytale_school_of_mfl')
 
-year10data = SHEET.worksheet('Year 10 data')
+def get_year_10_data():
+    """
+    get year 10 assessment data from the user"
+    """ 
 
-data = year10data.get_all_values()
+    print("Please enter the student assessment data from the end of Year 10.")
+    print("Data should be first name, target grade, and nine values. All information should be separated by commas.")
+    print("Example: Bambi, 7, 20, 46, 32, 54, 76, 49, 59, 47, 60 \n")
 
-print(data) 
+    data_str = input("Enter your data here:\n")
+    print(f"The data provided is: {data_str}")
+
+get_year_10_data()
