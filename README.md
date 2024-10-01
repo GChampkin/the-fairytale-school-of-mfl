@@ -1,32 +1,15 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# The Fairytale School of MFL
 
-Welcome,
+## Concept
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **May 14, 2024**
+The Fairytale School of MFL is monitoring its students' achievements in language-learning closely and want to target areas for development as their Year 10 pupils move into their final GCSE year of examinations. 
 
-## Reminders
+They need a programme that can track student data based on their achievement in each module taught throughout the GCSE programme, combined with data from the mock GCSE examination results, and inform them of the modules of study that need to be revisited for further consolidation as well as specific examination skills where pupils need most practice. 
 
-- Your code must be placed in the `run.py` file
-- Your dependencies must be placed in the `requirements.txt` file
-- Do not edit any of the other files or your code may not deploy properly
+This programme is designed for the user (teachers at the school) to input student data, calculate a median percentage of achievement per module and exam skill, and identify the primary module and skill to target for intervention sessions. 
 
-## Creating the Heroku app
+## Logic Path Flow Chart
 
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
+The programme needs to follow a specific path of logic in order to accurately read and calculate the data required by the user. For this, I have created the flow chart as seen below: 
 
-1. `heroku/python`
-2. `heroku/nodejs`
-
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
-
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
-
-Connect your GitHub repository and deploy as normal.
-
-## Constraints
-
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
-
----
-
-Happy coding!
+<img src = "assets/images/programme_flow_chart.JPG">
