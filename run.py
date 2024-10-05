@@ -15,7 +15,8 @@ SHEET = GSPREAD_CLIENT.open('the_fairytale_school_of_mfl')
 
 def get_year_10_data():
     """
-    get year 10 assessment data from the user"
+    Get year 10 assessment data from the user.
+    Run a while loop to collect valid data from the user that must consist of a name followed by 10 integers, each separated by a comma and a space. The request will continue to run until valid data is collected.
     """ 
     while True: # Repeats user input request when invalid data is input.
         print("Please enter the student assessment data from the end of Year 10.")
