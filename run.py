@@ -23,15 +23,15 @@ def get_year_10_data():
         print("Data should be first name, target grade, and nine values. All information should be separated by commas and a space.")
         print("Example: Bambi, 7, 20, 46, 32, 54, 76, 49, 59, 47, 60 \n")
 
-    data_str = input("Enter your data here:\n")
+        data_str = input("Enter your data here:\n")
     
-    assessment_data = data_str.split(",")
+        assessment_data = data_str.split(",")
     
-    if validate_data(assessment_data):
-        print("All inputs are valid.")
-        break
+        if validate_data(assessment_data):
+            print("All inputs are valid.")
+            break
 
-return assessment_data
+    return assessment_data
 
 def validate_data(values):
     """
@@ -66,4 +66,19 @@ def validate_data(values):
 
     return True
 
+def update_assessment_data(data):
+    """
+    Update assessment data worksheet, adding a new row with the list data provided.
+    """
+
+    print("Updating Assessment Worksheet ... \n")
+    assessment_worksheet = SHEET.worksheet("year 10 data")
+    assessment_worksheet.append_row(data)
+    print("Assessment Worksheet successfully updated.\n")
+
+
 data = get_year_10_data()
+
+assessment_data = [int(word) for word in data if word.isdigit()]
+
+update_assessment_data(assessment_data)
