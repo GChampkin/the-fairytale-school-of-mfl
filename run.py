@@ -12,6 +12,8 @@ CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('the_fairytale_school_of_mfl')
+DATA_SHEET_ID = '158HIpT7YzfjL9MT2PbcCzGQjRFRUrVgeu0RPqmUtyHM'
+DATA_RANGE = 'A17:K17'
 
 def get_year_10_data():
     """
@@ -73,12 +75,12 @@ def update_assessment_data(data):
 
     print("Updating Assessment Worksheet ... \n")
     assessment_worksheet = SHEET.worksheet("year 10 data")
-    assessment_worksheet.append_row(data)
+    assessment_worksheet.update([assessment_data], DATA_RANGE)
     print("Assessment Worksheet successfully updated.\n")
 
+def main():
+    data = get_year_10_data()
+    assessment_data = [int(word) for word in data if word.isdigit()]
+    update_assessment_data(assessment_data)
 
-data = get_year_10_data()
-
-assessment_data = [int(word) for word in data if word.isdigit()]
-
-update_assessment_data(assessment_data)
+main() 
