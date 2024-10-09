@@ -43,7 +43,8 @@ def validate_data(values):
     Raises another ValueError if values 2-11 are not numbers.
     """
     try:
-        [int(word) for word in values if word.isdigit()] # Converts only numeric inputs into integers
+        [int(item) if item.isdigit() else item for item in values] # Converts only numeric inputs into integers
+        print(values)
         
         if len(values) != 11:
             raise ValueError(
@@ -57,7 +58,7 @@ def validate_data(values):
         # Check if inputs 2-11 are numbers
         for i in range(1, 10):
             try:
-                float(values[i])  # This will check if the input can be converted to a float
+                float(values[i])  # This will check if the user input can be converted to a float
             except ValueError:
                 raise ValueError(f"Input {i+1} must be a number.")
         
@@ -74,13 +75,41 @@ def update_assessment_data(data):
     """
 
     print("Updating Assessment Worksheet ... \n")
-    assessment_worksheet = SHEET.worksheet("year 10 data")
-    assessment_worksheet.update([assessment_data], DATA_RANGE)
+    assessment_worksheet = SHEET.worksheet("year 10 data") #access year 10 data worksheet
+    assessment_worksheet.update([data], DATA_RANGE) #update year 10 data worksheet with user data
     print("Assessment Worksheet successfully updated.\n")
+
+def calculate_average():
+    """
+    Open specified worksheet to access data from.
+    Calculate average percentage per column based on all data in spreadsheet.
+    Update 'median' worksheet with average percentages by module of study.
+    """
+    # Open the spreadsheet and the specific worksheets
+    data_sheet = SHEET.worksheet('year 10 data')
+    median_sheet = SHEET.worksheet('median %')
+
+    # Retrieve all data from the data sheet
+    data = data_sheet.get_all_values()
+
+    # Convert the data to a list of lists, removing any empty strings
+    data_values = [[float(cell) for cell in row[2:] if cell] for row in data[2:] if row]
+    print(data_values)
+    # Calculate the average percentage of data
+    # total_values = sum(len(column) for column in data_values)
+    # total_cells = len(data) * len(data[0])  # Assuming the sheet is a complete rectangle
+    # average_percentage = (total_values / total_cells) * 100 # calculate average percentage
+
+    # # Update the 'median' worksheet with the average percentage per module/assessment
+    # median_sheet.update('B3:J3')
+
+    # print('Average percentages updated in median % worksheet.')
 
 def main():
     data = get_year_10_data()
-    assessment_data = [int(word) for word in data if word.isdigit()]
+    assessment_data = [int(item) if item.isdigit() else item for item in data]
     update_assessment_data(assessment_data)
+    calculate_average()
 
+print("Welcome to The Fairytale School of MFL's data automation programme:")
 main() 
