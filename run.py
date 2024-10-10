@@ -43,7 +43,6 @@ def validate_data(values):
     """
     try:
         [int(item) if item.isdigit() else item for item in values] # Converts only numeric inputs into integers
-        print(values)
         
         if len(values) != 11:
             raise ValueError(
@@ -63,7 +62,7 @@ def validate_data(values):
         
 
     except ValueError as e:
-        print(f"Invaid data: {e}. Please try again. \n")
+        print(f"Invalid data: {e}. Please try again. \n")
         return False
 
     return True
@@ -99,8 +98,8 @@ def calculate_average(assessment_data):
     for col_index in range(2, 11):
         column_values = [int(row[col_index]) for row in all_values if row[col_index].isdigit()]
         if column_values:
-            average = sum(column_values) / len(column_values)
-            whole_number_average = round(average)
+            average = sum(column_values) / len(column_values) #calculate average percentage for input in spreadsheet
+            whole_number_average = round(average) #round average to a whole number
             averages.append(whole_number_average)
         else:
             averages.append(0)
@@ -113,10 +112,15 @@ def update_median_worksheet(averages_data):
     """
 
     median_worksheet = SHEET.worksheet('median %')
-    # # Update the 'median' worksheet with the average percentage per module/assessment
+    # Update the 'median' worksheet with the average percentage per module/assessment
     median_worksheet.append_row(averages_data)
 
     print('Average percentages updated in median % worksheet.')
+
+def find_lowest_value(averages_data):
+    median_data = SHEET.worksheet('median %')
+
+    median_values = median_data.get_all_values()
 
 def main():
     data = get_year_10_data()
