@@ -96,16 +96,16 @@ def calculate_average(assessment_data):
     averages = []
 
     # Iterate over each column index to target specific data for calculation
-    for col_index in range(11):
+    for col_index in range(2, 11):
         column_values = [int(row[col_index]) for row in all_values if row[col_index].isdigit()]
         if column_values:
             average = sum(column_values) / len(column_values)
-            averages.append(average)
+            whole_number_average = round(average)
+            averages.append(whole_number_average)
         else:
             averages.append(0)
     return averages
 
-    averages_data = averages[2:] #extract only data to be recorded in median spreadsheet
 
 def update_median_worksheet(averages_data):
     """
