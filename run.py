@@ -96,24 +96,25 @@ def calculate_average(assessment_data):
     averages = []
 
     # Iterate over each column index to target specific data for calculation
-    for col_index in range(9):
-        column_values = [float(row[col_index]) for row in all_values if row[col_index].isdigit()]
+    for col_index in range(11):
+        column_values = [int(row[col_index]) for row in all_values if row[col_index].isdigit()]
         if column_values:
             average = sum(column_values) / len(column_values)
             averages.append(average)
         else:
             averages.append(0)
     return averages
-    print(averages)
 
-def update_median_worksheet(averages):
+    averages_data = averages[2:] #extract only data to be recorded in median spreadsheet
+
+def update_median_worksheet(averages_data):
     """
     Update median % worksheet with average percentages calculated per module and exam.
     """
 
     median_worksheet = SHEET.worksheet('median %')
     # # Update the 'median' worksheet with the average percentage per module/assessment
-    median_sheet.update('B3:J3')
+    median_worksheet.append_row(averages_data)
 
     print('Average percentages updated in median % worksheet.')
 
@@ -121,7 +122,8 @@ def main():
     data = get_year_10_data()
     assessment_data = [int(item) if item.isdigit() else item for item in data]
     update_assessment_data(assessment_data)
-    calculate_average(assessment_data)
+    averages_data = calculate_average(assessment_data)
+    update_median_worksheet(averages_data)
 
 print("Welcome to The Fairytale School of MFL's data automation programme:")
 main() 
