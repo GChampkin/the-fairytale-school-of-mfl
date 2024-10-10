@@ -12,8 +12,7 @@ CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('the_fairytale_school_of_mfl')
-DATA_SHEET_ID = '158HIpT7YzfjL9MT2PbcCzGQjRFRUrVgeu0RPqmUtyHM'
-DATA_RANGE = 'A17:K17'
+DATA_RANGE = 'B3:J3'
 
 def get_year_10_data():
     """
@@ -22,7 +21,7 @@ def get_year_10_data():
     """ 
     while True: # Repeats user input request when invalid data is input.
         print("Please enter the student assessment data from the end of Year 10.")
-        print("Data should be first name, target grade, and nine values. All information should be separated by commas and a space.")
+        print("Data should be first name, target grade, and nine values. All information should be separated by commas only, no space.")
         print("Example: Bambi, 7, 20, 46, 32, 54, 76, 49, 59, 47, 60 \n")
 
         data_str = input("Enter your data here:\n")
@@ -76,40 +75,53 @@ def update_assessment_data(data):
 
     print("Updating Assessment Worksheet ... \n")
     assessment_worksheet = SHEET.worksheet("year 10 data") #access year 10 data worksheet
-    assessment_worksheet.update([data], DATA_RANGE) #update year 10 data worksheet with user data
+    assessment_worksheet.append_row(data) #update year 10 data worksheet with user data
     print("Assessment Worksheet successfully updated.\n")
 
-def calculate_average():
+def calculate_average(assessment_data):
     """
     Open specified worksheet to access data from.
     Calculate average percentage per column based on all data in spreadsheet.
     Update 'median' worksheet with average percentages by module of study.
     """
-    # Open the spreadsheet and the specific worksheets
+
+    print("Calculating average percentage data ...")
+    # Open the year 10 data spreadsheet 
     data_sheet = SHEET.worksheet('year 10 data')
-    median_sheet = SHEET.worksheet('median %')
 
-    # Retrieve all data from the data sheet
-    data = data_sheet.get_all_values()
+    # Get all values from the worksheet
+    all_values = data_sheet.get_all_values()
 
-    # Convert the data to a list of lists, removing any empty strings
-    data_values = [[float(cell) for cell in row[2:] if cell] for row in data[2:] if row]
-    print(data_values)
-    # Calculate the average percentage of data
-    # total_values = sum(len(column) for column in data_values)
-    # total_cells = len(data) * len(data[0])  # Assuming the sheet is a complete rectangle
-    # average_percentage = (total_values / total_cells) * 100 # calculate average percentage
+    # Initialize list to store averages
+    averages = []
 
+    # Iterate over each column index to target specific data for calculation
+    for col_index in range(9):
+        column_values = [float(row[col_index]) for row in all_values if row[col_index].isdigit()]
+        if column_values:
+            average = sum(column_values) / len(column_values)
+            averages.append(average)
+        else:
+            averages.append(0)
+    return averages
+    print(averages)
+
+def update_median_worksheet(averages):
+    """
+    Update median % worksheet with average percentages calculated per module and exam.
+    """
+
+    median_worksheet = SHEET.worksheet('median %')
     # # Update the 'median' worksheet with the average percentage per module/assessment
-    # median_sheet.update('B3:J3')
+    median_sheet.update('B3:J3')
 
-    # print('Average percentages updated in median % worksheet.')
+    print('Average percentages updated in median % worksheet.')
 
 def main():
     data = get_year_10_data()
     assessment_data = [int(item) if item.isdigit() else item for item in data]
     update_assessment_data(assessment_data)
-    calculate_average()
+    calculate_average(assessment_data)
 
 print("Welcome to The Fairytale School of MFL's data automation programme:")
 main() 
