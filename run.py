@@ -117,10 +117,22 @@ def update_median_worksheet(averages_data):
 
     print('Average percentages updated in median % worksheet.')
 
-def find_lowest_value(averages_data):
+def find_lowest_module_value(averages_data):
     median_data = SHEET.worksheet('median %')
 
     median_values = median_data.get_all_values()
+
+    lowest_module_value = []
+
+    for col_index in range(0,5):
+        column_values = [int(row[col_index]) for row in median_values if row[col_index].isdigit()]
+        if column_values:
+            module_value = min(column_values)
+            lowest_module_value.append(module_value)
+        return module_value
+
+    print("Module to be revised is:", lowest_module_value)
+    
 
 def main():
     data = get_year_10_data()
@@ -128,6 +140,7 @@ def main():
     update_assessment_data(assessment_data)
     averages_data = calculate_average(assessment_data)
     update_median_worksheet(averages_data)
+    find_lowest_module_value(averages_data)
 
 print("Welcome to The Fairytale School of MFL's data automation programme:")
 main() 
