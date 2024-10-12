@@ -117,7 +117,7 @@ def update_median_worksheet(averages_data):
 
     print('Average percentages updated in median % worksheet.')
 
-def find_lowest_module_value(averages_data):
+def find_lowest_values(averages_data):
     """
     Get and return lowest value from module assessment averages.
     Get and return lowest value from exam skill assessment averages.
@@ -157,7 +157,7 @@ def main():
     update_assessment_data(assessment_data)
     averages_data = calculate_average(assessment_data)
     update_median_worksheet(averages_data)
-    find_lowest_module_value(averages_data)
+    find_lowest_values(averages_data)
 
 print("Welcome to The Fairytale School of MFL's data automation programme:")
 main() 
