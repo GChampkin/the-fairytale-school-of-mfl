@@ -118,18 +118,35 @@ def update_median_worksheet(averages_data):
     print('Average percentages updated in median % worksheet.')
 
 def find_lowest_module_value(averages_data):
+    """
+    Get and return lowest value from module assessment averages.
+    Get and return lowest value from exam skill assessment averages.
+    """
     median_data = SHEET.worksheet('median %')
 
     median_values = median_data.get_all_values()
 
     lowest_module_value = []
 
+    lowest_exam_skill = []
+
+    # Target only numeric data in module range from worksheet to retrieve lowest module value.
+
     for col_index in range(0,5):
         column_values = [int(row[col_index]) for row in median_values if row[col_index].isdigit()]
         if column_values:
-            module_value = min(column_values)
+            module_value = min(column_values) 
             lowest_module_value.append(module_value)
         return module_value
+
+    # Target only numeric data in skill range from worksheet to retrieve lowest skill value.
+
+    for col_index in range(6,9):
+        column_values = [int(row[col_index]) for row in median_values if row[col_index].isdigit()]
+        if column_values:
+            skill_value = min(column_values)
+            lowest_exam_skill.append(skill_value)
+        return skill_value
 
     print("Module to be revised is:", lowest_module_value)
     
