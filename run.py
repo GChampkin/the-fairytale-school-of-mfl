@@ -126,27 +126,42 @@ def find_lowest_values(averages_data):
 
     median_values = median_data.get_all_values()
 
-    lowest_module_value = []
+    results = []
 
-    lowest_exam_skill = []
+    lowest_value_module = min(median_values[-1][:5])
+    min_indices_module = [i for i, x in enumerate(median_values[-1][:5]) if x == lowest_value_module]
 
-    # Target only numeric data in module range from worksheet to retrieve lowest module value.
+    for index in min_indices_module:
+        module_index = median_values[0][index]
+        results.append(module_index)
+        print("Module index:", module_index)
 
-    for col_index in range(0,5):
-        column_values = [int(row[col_index]) for row in median_values if row[col_index].isdigit()]
-        if column_values:
-            module_value = min(column_values) 
-            lowest_module_value.append(module_value)
-        return module_value
 
-    # Target only numeric data in skill range from worksheet to retrieve lowest skill value.
+    lowest_value_skill = min(median_values[-1][5:9])
+    min_indices_skill = [i + 5 for i, x in enumerate(median_values[-1][5:9]) if x == lowest_value_skill]
 
-    for col_index in range(6,9):
-        column_values = [int(row[col_index]) for row in median_values if row[col_index].isdigit()]
-        if column_values:
-            skill_value = min(column_values)
-            lowest_exam_skill.append(skill_value)
-        return skill_value
+    for index in min_indices_skill:
+        skill_index = median_values[0][index]
+        results.append(skill_index)
+        print("Skill index:", skill_index)
+
+    return results
+
+    # Return the first module index found to show user which to focus on
+    # return median_values[0][min_indices[0]]
+
+   
+        
+    lowest_values = lowest_module_value, lowest_exam_skill
+
+def update_foci_worksheet(lowest_values):
+    """
+    Update foci worksheet with lowest values for intervention.
+    """
+
+    foci_worksheet = SHEET.workheet('foci')
+    foci_worksheet.append_row(lowest_values)
+
 
     print("Module to be revised is:", lowest_module_value)
     
