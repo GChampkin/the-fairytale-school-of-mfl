@@ -111,6 +111,7 @@ def update_median_worksheet(averages_data):
     Update median % worksheet with average percentages calculated per module and exam.
     """
 
+    print("Updating averages in median % worksheet ...")
     median_worksheet = SHEET.worksheet('median %')
     # Update the 'median' worksheet with the average percentage per module/assessment
     median_worksheet.append_row(averages_data)
@@ -150,20 +151,15 @@ def find_lowest_values(averages_data):
     # Return the first module index found to show user which to focus on
     # return median_values[0][min_indices[0]]
 
-   
-        
-    lowest_values = lowest_module_value, lowest_exam_skill
-
-def update_foci_worksheet(lowest_values):
+def update_foci_worksheet(results):
     """
     Update foci worksheet with lowest values for intervention.
     """
 
-    foci_worksheet = SHEET.workheet('foci')
-    foci_worksheet.append_row(lowest_values)
-
-
-    print("Module to be revised is:", lowest_module_value)
+    print("Updating foci in foci worksheet ... ")
+    foci_worksheet = SHEET.worksheet('foci')
+    foci_worksheet.append_row(results)
+    print("Foci worksheet updated.")
     
 
 def main():
@@ -172,7 +168,10 @@ def main():
     update_assessment_data(assessment_data)
     averages_data = calculate_average(assessment_data)
     update_median_worksheet(averages_data)
-    find_lowest_values(averages_data)
+    results = find_lowest_values(averages_data)
+    update_foci_worksheet(results)
+    print("Module and skill to be revised:", results)
 
 print("Welcome to The Fairytale School of MFL's data automation programme:")
 main() 
+print("Good luck for the exams!")
