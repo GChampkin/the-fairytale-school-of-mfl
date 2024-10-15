@@ -37,3 +37,84 @@ The programme needs to follow a specific path of logic in order to accurately re
 ## Features
 
 ### Existing Features
+
+* User data request
+
+The terminal requests the user to input their student data, detailing required structure of input.
+
+<img src = "assets/images/data_request.jpg">
+
+* Input validation and error checking
+
+- The total number of values entered must be strictly equal to 11.
+
+<img src = "assets/images/total_values.jpg">
+
+- The first value entered must strictly be a name (letters only).
+
+<img src = "assets/images/name_input.jpg">
+
+- Inputs 2-11 must strictly be numeric.
+
+<img src = "assets/images/number_input.jpg">
+
+* Data calculated and updated to spreadsheets, and communicated to the user in the terminal.
+
+<img src = "assets/images/updates.jpg">
+
+* Final output printed to terminal for user. 
+
+<img src = "assets/images/final_output.jpg">
+
+### Future Features
+
+* Create function to identify individual students for intervention based on assessment data and tell user which module and exam skill to target for individual intervention.
+
+* Develop for intervention focus based on unit of study within modules.
+
+* Develop intervention focus for specific exam skill question/question style.
+
+## Data Model
+
+Due to the nature of my project handling data in Google Sheets, being inspired by Code Institue's "Love Sandwiches" project, I decided to use a Tabular Data Model to build my programme. In this context, the Google Sheet's structure is akin to a table, and the data model mirrors this tabular format. This model organizes data into rows and columns, making it straightforward to perform operations like indexing, slicing, and iterating over specific subsets of data.
+
+The programme is made of functions that iterate across subsets of data in order to check, validate, and update data into tables. The model also features methods such as print methods to print out updates and information and return the results to the user.
+
+### Bugs
+
+#### Solved Bugs
+
+* When writing the project, I initially ran across TypeErrors due to the required data from the user being a combination of strings and integers which were subsequently created as lists and then trying to perform operations on this data that strictly required only one type of data. I fixed these by using for loops and if statements to iterate across subsets of data and transform them into integers and/or strings based on a specific range of data. 
+
+* My try statement turning numeric data into integers intially failed due to my list containing a string and integers. Research lead me to identify the correct process to take to target only the numeric data. 
+
+* I had believed my update_assessment_data function was failing due my inadvertently inputing a space after every value when testing the programme. This was clearly human error only and in fact the programme was working fine. I therefore made the requirement for no spaces to be input explicit for the user in the intial print of required information.
+
+* I ran across another TypeError when writing my find_lowest_values function as I was trying to call the index of a list of data that did not contain integers or slices. Iterating over it using a for loop helped solve the problem. 
+
+### Remaining Bugs
+
+* No remaining bugs. 
+
+### Validator Testing
+
+* PEP8
+
+## Deployment
+
+This project was deployed using Code Institute's mock terminal for Heroku. 
+
+Steps for deployment:
+* Fork or clone this repository
+* Create a new Heroku App
+* Set the buildbacks to Python and NodeJS in that order
+* Link the Heroku app to the repository
+* Click on <strong>Deploy</strong>
+
+## Credits
+
+* Code Institue for the deployment terminal
+* Code Institute's "Love Sandwiches" walkthrough for my initial inspiration with the project. I will state that I used this as the base for my project in setting up the APIs and beginning the code, which I then adapted to make it unique and meet the needs of my personal project. One will see the ways in which I have conducted my own research to adapt this and write it independently.
+* https://stackoverflow.com/ for the forums where I sought answers in research, particularly surrounding turning lists of mixed data types into integers.
+* https://www.geeksforgeeks.org/ for information on specific methods to Python coding researched.
+* https://www.w3schools.com/ for information on specific methods to Python coding researched.
