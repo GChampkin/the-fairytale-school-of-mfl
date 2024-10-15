@@ -135,7 +135,6 @@ def find_lowest_values(averages_data):
     for index in min_indices_module:
         module_index = median_values[0][index]
         results.append(module_index)
-        print("Module index:", module_index)
 
 
     lowest_value_skill = min(median_values[-1][5:9])
@@ -144,7 +143,6 @@ def find_lowest_values(averages_data):
     for index in min_indices_skill:
         skill_index = median_values[0][index]
         results.append(skill_index)
-        print("Skill index:", skill_index)
 
     return results
 
@@ -170,7 +168,8 @@ def main():
     update_median_worksheet(averages_data)
     results = find_lowest_values(averages_data)
     update_foci_worksheet(results)
-    print("Module and skill to be revised:", results)
+    print("Module to be revised:", "".join(results[0]))
+    print("Skill to be revised:", "".join(results[1]))
 
 print("Welcome to The Fairytale School of MFL's data automation programme:")
 main() 
