@@ -21,10 +21,10 @@ def get_year_10_data():
     """ 
     while True: # Repeats user input request when invalid data is input.
         print("Please enter the student assessment data from the end of Year 10.")
-        print("Data should be first name, target grade, and nine values. All information should be separated by commas only, no space.")
+        print("Data should be first name, target grade, and nine values(Percentage score for: Module 1, MOdule 2, Module 3, Module 4, Module 5, Reading Mock, Listening Mock, Writing Mock, Speaking Mock). All information should be separated by commas only, no space.")
         print("Example: Bambi,7,20,46,32,54,76,49,59,47,60 \n")
 
-        data_str = input("Enter your data here:\n")
+        data_str = input("Enter student data here:\n")
     
         assessment_data = data_str.split(",")
     
@@ -171,6 +171,6 @@ def main():
     print("Module to be revised:", "".join(results[0]))
     print("Skill to be revised:", "".join(results[1])) # Print to terminal required module and skill focus for interention. 
 
-print("Welcome to The Fairytale School of MFL's data automation programme:")
+print("Welcome to The Fairytale School of MFL's Intervention Identifier:")
 main() 
 print("Good luck for the exams!")
