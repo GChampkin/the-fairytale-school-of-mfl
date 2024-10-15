@@ -20,8 +20,9 @@ def get_year_10_data():
     Run a while loop to collect valid data from the user that must consist of a name followed by 10 integers, each separated by a comma and a space. The request will continue to run until valid data is collected.
     """ 
     while True: # Repeats user input request when invalid data is input.
-        print("Please enter the student assessment data from the end of Year 10.")
-        print("Data should be first name, target grade, and nine values(Percentage score for: Module 1, MOdule 2, Module 3, Module 4, Module 5, Reading Mock, Listening Mock, Writing Mock, Speaking Mock). All information should be separated by commas only, no space.")
+        print("Please enter the student assessment data from the end of Year 10. \n")
+        print("Data should be: first name, target grade, and nine values as follows: \nPercentage score for: \nModules 1-5 in that order \nReading Mock \nListening Mock \nWriting Mock \nSpeaking Mock. \n")
+        print("All information should be separated by commas only, no space. \n")
         print("Example: Bambi,7,20,46,32,54,76,49,59,47,60 \n")
 
         data_str = input("Enter student data here:\n")
@@ -29,7 +30,7 @@ def get_year_10_data():
         assessment_data = data_str.split(",")
     
         if validate_data(assessment_data):
-            print("All inputs are valid.")
+            print("All inputs are valid. \n")
             break
 
     return assessment_data
@@ -46,19 +47,19 @@ def validate_data(values):
         
         if len(values) != 11:
             raise ValueError(
-                f"Exactly 11 total values required. You entered {len(values)}"
+                f"Exactly 11 total values required. You entered {len(values)} \n"
             )
 
         # Check if the first input is a name (string without numbers) to ensure correct data is input for the spreadsheet.
         if not values[0].isalpha():
-            raise ValueError("The first input must be a name (letters only)")
+            raise ValueError("The first input must be a name (letters only) \n")
         
         # Check if inputs 2-11 specifically are numbers to verify only requitred data.
         for i in range(1, 10):
             try:
                 float(values[i])  # This will check if the user input can be converted to a float required for running calculations.
             except ValueError:
-                raise ValueError(f"Input {i+1} must be a number.")
+                raise ValueError(f"Input {i+1} must be a number. \n")
         
 
     except ValueError as e:
@@ -84,7 +85,7 @@ def calculate_average(assessment_data):
     Update 'median' worksheet with average percentages by module of study.
     """
 
-    print("Calculating average percentage data ...")
+    print("Calculating average percentage data ... \n")
     # Open the year 10 data spreadsheet to access data.
     data_sheet = SHEET.worksheet('year 10 data')
 
@@ -111,11 +112,11 @@ def update_median_worksheet(averages_data):
     Update median % worksheet with average percentages calculated per module and exam.
     """
 
-    print("Updating averages in median % worksheet ...")
+    print("Updating averages in median % worksheet ... \n")
     median_worksheet = SHEET.worksheet('median %')
     median_worksheet.append_row(averages_data) # Update the 'median' worksheet with the average percentage per module/assessment.
 
-    print('Average percentages updated in median % worksheet.')
+    print('Average percentages updated in median % worksheet. \n')
 
 def find_lowest_values(averages_data):
     """
@@ -151,10 +152,10 @@ def update_foci_worksheet(results):
     Update foci worksheet with lowest values for intervention.
     """
 
-    print("Updating foci in foci worksheet ... ")
+    print("Updating foci in foci worksheet ... \n")
     foci_worksheet = SHEET.worksheet('foci') # Access foci worksheet.
     foci_worksheet.append_row(results) # Update foci worksheet with results data for confirmation to user.
-    print("Foci worksheet updated.")
+    print("Foci worksheet updated. \n")
     
 
 def main():
@@ -168,9 +169,9 @@ def main():
     update_median_worksheet(averages_data)
     results = find_lowest_values(averages_data)
     update_foci_worksheet(results)
-    print("Module to be revised:", "".join(results[0]))
-    print("Skill to be revised:", "".join(results[1])) # Print to terminal required module and skill focus for interention. 
+    print("Module to be revised:", "".join(results[0]), "\n")
+    print("Skill to be revised:", "".join(results[1]), " \n") # Print to terminal required module and skill focus for interention. 
 
-print("Welcome to The Fairytale School of MFL's Intervention Identifier:")
+print("Welcome to The Fairytale School of MFL's Intervention Identifier: \n")
 main() 
 print("Good luck for the exams!")
